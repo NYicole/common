@@ -62,10 +62,10 @@ class Upload{
     $newname = self::getNewName($file['name']);
     if(move_uploaded_file($file['tmp_name']),$path.'/'.$newname){
       //上传成功
-      return $$path.'/'.$newname;
+      return $path.'/'.$newname;
     }else{
       //失败
-      self::$errorInfo == '文件移动失败';
+      self::$errorInfo = '文件移动失败';
       return false;
     }
     
