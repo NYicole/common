@@ -94,4 +94,49 @@ class Upload{
     //返回拼凑好的文件名以及后缀名
     return $newname.$extension;
   }
+  
+  //多文件上传
+  // @param array $file,多维数组
+  public static function uploadMultipe($file){
+    //定义一个数组保存上传路径
+    $upload_arr = array();
+    //也要先输入进来的是不是一个数组
+    if(is_array($file)){
+      //遍历数组$file
+      foreach($file as $single){
+        //如果$single下面的name里面的值是数组的话，那么就是多文件上传，如果只有一个，就是单文件上传
+        if(is_array($single['name'])){
+          //多文件上传，还要遍历
+          for($i=0,$length = count($single['name']);$i<$length;$i++){
+            //构建数组
+            $arr = array(
+              'name' => $single['name'][$i];
+              'type' => $single['type'][$i];
+              'tmp_name' => $single['tmp_name'][$i];
+              'error' => $single['error'][$i];
+              'size' => $single['size'][$i];
+            );
+            
+            //已经得到一个单独的文件
+            if($path = self::uploadSingle($arr)){
+              $upload_arr[$i] = $path;
+            }else{
+              //上传不成功，错误信息
+              self::$mulitErrorInfo[] = self::$errorInfo;
+            }
+          }else{
+            //不是多文件上传
+            if($path = self::uploadSingle($single)){
+              $upload_arr[] = $path;
+            }else{
+              //上传不成功
+              self::$mulitErrorInfo[] = self::$errorInfo;
+            }
+          }
+        }
+      }
+    }
+    //返回数据
+    return $upload_arr;
+  }
 }
