@@ -1,2 +1,5 @@
 # common
 common function
+```
+init
+```
