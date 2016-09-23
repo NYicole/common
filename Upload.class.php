@@ -110,11 +110,11 @@ class Upload{
           for($i=0,$length = count($single['name']);$i<$length;$i++){
             //构建数组
             $arr = array(
-              'name' => $single['name'][$i];
-              'type' => $single['type'][$i];
-              'tmp_name' => $single['tmp_name'][$i];
-              'error' => $single['error'][$i];
-              'size' => $single['size'][$i];
+              'name' => $single['name'][$i],
+              'type' => $single['type'][$i],
+              'tmp_name' => $single['tmp_name'][$i],
+              'error' => $single['error'][$i],
+              'size' => $single['size'][$i]
             );
             
             //已经得到一个单独的文件
